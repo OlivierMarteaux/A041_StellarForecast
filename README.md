@@ -16,6 +16,7 @@ Projet 4 - Cours 2 - Récupérer et afficher des données distantes
 ### Skills
 - [x] Retrofit
 - [x] Moshi (Json parsing)
-- [x] View RecyclerView
+- [x] View/RecyclerView
 - [x] ViewModel
+- [x] Hilt (Dependency injection)
   
