@@ -8,6 +8,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Pour permettre à Hilt de configurer automatiquement notre repository, nous allons créer un
+ * nouveau module, de la même manière que nous l'avons fait pour Retrofit.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
