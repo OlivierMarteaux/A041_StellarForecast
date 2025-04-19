@@ -19,7 +19,13 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity(), WeatherAdapter.OnItemClickListener {
 
     override fun onItemClick(item: WeatherReportModel) {
-        Toast.makeText(this, "Il fera ${item.temperatureCelsius} °C", Toast.LENGTH_SHORT).show()
+        Toast
+            .makeText(
+                this,
+                "${item.weatherTitle}\nIl fera ${item.temperatureCelsius} °C",
+                Toast.LENGTH_SHORT
+            )
+            .show()
     }
 
     private lateinit var binding: ActivityMainBinding

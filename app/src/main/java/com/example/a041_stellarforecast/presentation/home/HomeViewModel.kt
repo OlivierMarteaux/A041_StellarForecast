@@ -53,8 +53,8 @@ class HomeViewModel @Inject constructor(private val dataRepository: WeatherRepos
 
         private fun getForecastData(){
             // coordonnees maison
-            val longitude = 43.521162766326995
-            val latitude = 6.8696485006942405
+            val latitude = 43.521162766326995
+            val longitude = 6.8696485006942405
             dataRepository.fetchForecastData(latitude, longitude)
                 .onEach{ forecastUpdate ->
                     _uiState.update { currentState ->
