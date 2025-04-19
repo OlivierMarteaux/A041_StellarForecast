@@ -9,9 +9,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a041_stellarforecast.databinding.ActivityMainBinding
 import com.example.a041_stellarforecast.domain.model.WeatherReportModel
 import com.example.a041_stellarforecast.presentation.home.HomeViewModel
+import com.example.a041_stellarforecast.presentation.home.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.*
 import kotlinx.coroutines.GlobalScope
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: HomeViewModel by viewModels()
-    // TODO 1
+    private val  customAdapter = WeatherAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +56,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateCurrentWeather(forecast: List<WeatherReportModel>){
-        TODO()
+        customAdapter.submitList(forecast)
     }
 
     private fun defineRecyclerView(){
-        TODO()
+        val layoutManager = LinearLayoutManager(applicationContext /*this*/)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = customAdapter
     }
 }
