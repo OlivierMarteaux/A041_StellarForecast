@@ -5,6 +5,15 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Calendar
 
+/**
+ * Cette classe principale représente la réponse complète de l'API OpenWeather pour les
+ * prévisions météorologiques. Elle contient une liste de prévisions ( forecasts  ),
+ * chaque prévision étant représentée par la classe interne  ForecastResponse   .
+ *
+ * En résumé, cette classe Kotlin fournit une représentation structurée des données reçues
+ * de l'API OpenWeather, et l'utilisation des annotations @JsonClass  permet de simplifier
+ * la sérialisation et la désérialisation JSON via Moshi.
+ */
 @JsonClass(generateAdapter = true)
 data class OpenWeatherForecastsResponse(
     @Json(name = "list")
@@ -12,6 +21,11 @@ data class OpenWeatherForecastsResponse(
 ) {
 
 
+    /**
+     * Cette classe interne représente la prévision météorologique pour une heure donnée.
+     * Elle contient des informations telles que l'horaire ( time  ),
+     * la température (  temperature  ) et les détails météorologiques ( weather  ).
+     */
     @JsonClass(generateAdapter = true)
     data class ForecastResponse(
         @Json(name = "dt")
@@ -23,6 +37,10 @@ data class OpenWeatherForecastsResponse(
     ) {
 
 
+        /**
+         * Cette classe interne de ForecastResponse  représente les données de température
+         * pour une prévision. Elle contient la température réelle en Kelvin (temp ).
+         */
         @JsonClass(generateAdapter = true)
         data class TemperatureResponse(
             @Json(name = "temp")
@@ -30,6 +48,11 @@ data class OpenWeatherForecastsResponse(
         )
 
 
+        /**
+         * Cette classe interne de ForecastResponse  représente les détails météorologiques
+         * pour une prévision. Elle contient l'identifiant (  id  ), le titre (  title  )
+         * et la description (  description  ) de l'état météorologique.
+         */
         @JsonClass(generateAdapter = true)
         data class WeatherResponse(
             @Json(name = "id")

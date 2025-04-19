@@ -13,12 +13,28 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+/**
+ * la classe  NetworkModule  joue un rôle crucial dans la mise en place de la communication réseau
+ * au sein de votre application Android. Elle est annotée avec@Modulepour indiquer à Hilt
+ * (injection de dépendances) à qui elle fournit des dépendances pour l'application.
+ * L'annotation@InstallIn(ApplicationComponent::class)spécifie que les dépendances fournies
+ * par ce module seront disponibles au niveau du composant d'application, ce qui signifie
+ * qu'elles seront accessibles pendant toute la durée de vie de l'application. Elle fournit des
+ * instances de Retrofit et de l'interface WeatherClient. La première fonction fournit l'instance
+ * de Retrofit, tandis que la seconde fournit le service de l'API météo.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
 
     // Provides a singleton instance of Retrofit for network communication
+    /**
+     * Cette fonction fournit une instance unique de Retrofit pour la communication réseau.
+     * Elle utilise Moshi comme convertisseur JSON, avec l'ajout du KotlinJsonAdapterFactory
+     * pour une meilleure compatibilité avec les classes Kotlin. La configuration d'OkHttpClient
+     * est extraite dans une fonction séparée pour plus de clarté ;
+     */
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {

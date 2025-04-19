@@ -55,6 +55,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * En utilisant la fonction collect, nous observons les changements d'état.
+     * A chaque émission d'une nouvelle liste de données, l'ensemble des données de l'Adapter
+     * de la RecyclerView est mis à jour, assurant ainsi une représentation en temps réel des
+     * informations dans l'interface utilisateur.
+     *
+     * Ainsi, cette approche garantit une gestion efficace des changements d'état, une mise à jour
+     * réactive de l'interface utilisateur et une expérience utilisateur fluide au sein de votre
+     * application Android.
+     */
     private fun updateCurrentWeather(forecast: List<WeatherReportModel>){
         customAdapter.submitList(forecast)
     }

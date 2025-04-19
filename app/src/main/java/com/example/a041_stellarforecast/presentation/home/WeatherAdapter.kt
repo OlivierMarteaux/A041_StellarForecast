@@ -19,14 +19,15 @@ import java.util.Locale
 class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherViewHolder>(DiffCallback) {
 
     /**
-     * Classe interne représentant chaque élément de la liste, responsable de la liaison des données
-     * avec les vues.
+     * Un ViewHolder représente chaque élément individuel dans la liste.
+     * Il conserve une référence aux vues à l'intérieur de chaque élément de la liste,
+     * ce qui évite de rechercher ces vues à chaque mise à jour.
      */
     class WeatherViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
         private val dateFormatter = SimpleDateFormat("dd/MM - HH:mm", Locale.getDefault())
 
         /**
-         * Lie les propriétés des données de prévisions météorologiques aux éléments de la vue,
+         * bind lie les propriétés des données de prévisions météorologiques aux éléments de la vue,
          * tels que la température, les températures maximale et minimale, ainsi que les
          * précipitations. C’est la méthode que vous modifierez le plus afin d’afficher
          * les données souhaitées.
@@ -49,10 +50,10 @@ class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherV
     }
 
     /**
-     * Aide à déterminer quelles données ont changé entre les anciennes et les nouvelles listes
-     * d'éléments. Cela aide à optimiser l'affichage en mettant à jour uniquement les parties
-     * nécessaires de l'interface utilisateur lorsqu'il y a des changements. Dans notre cas,
-     * nous vérifions seulement si la date change.
+     * DiffCallBack aide à déterminer quelles données ont changé entre les anciennes et les
+     * nouvelles listes d'éléments. Cela aide à optimiser l'affichage en mettant à jour uniquement
+     * les parties nécessaires de l'interface utilisateur lorsqu'il y a des changements.
+     * Dans notre cas, nous vérifions seulement si la date change.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<WeatherReportModel>() {
         override fun areItemsTheSame(oldItem: WeatherReportModel, newItem: WeatherReportModel): Boolean {
