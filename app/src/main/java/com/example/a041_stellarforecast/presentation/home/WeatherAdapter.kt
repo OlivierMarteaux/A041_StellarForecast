@@ -19,8 +19,12 @@ import java.util.Locale
  * L'Adapter gère la création des ViewHolders (  onCreateViewHolder  ), l'association des données
  * avec les vues (  bind  ) et la gestion des mises à jour dynamiques de l'interface utilisateur.
  */
-class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherViewHolder>(DiffCallback) {
+class WeatherAdapter(private val itemClickListener: OnItemClickListener) :
+    ListAdapter<WeatherReportModel, WeatherAdapter.WeatherViewHolder>(DiffCallback) {
 
+    interface OnItemClickListener{
+        fun onItemClick(item: WeatherReportModel)
+    }
     /**
      * Un ViewHolder représente chaque élément individuel dans la liste.
      * Il conserve une référence aux vues à l'intérieur de chaque élément de la liste,
@@ -29,7 +33,10 @@ class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherV
      * Les ViewHolders représentent la partie graphique de la RecyclerView, ce sont les éléments
      * de la liste que nous lions à un fichier XML.
      */
-    class WeatherViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
+    class WeatherViewHolder(
+        private val binding: ItemWeatherBinding,
+        private val itemClickListener: OnItemClickListener
+    ) : RecyclerView.ViewHolder(binding.root) {
         private val dateFormatter = SimpleDateFormat("dd/MM - HH:mm", Locale.getDefault())
 
         /**
@@ -42,12 +49,15 @@ class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherV
             val formattedDate: String = dateFormatter.format(weather.date.time)
             binding.textViewDateTime.text = formattedDate
             binding.textViewStargazing.text = if (weather.isGoodForStargazing) "⭐️" else "☁️"
+            binding.root.setOnClickListener {
+                itemClickListener.onItemClick(weather)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         val itemView = ItemWeatherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return WeatherViewHolder(itemView)
+        return WeatherViewHolder(itemView, itemClickListener)
     }
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {

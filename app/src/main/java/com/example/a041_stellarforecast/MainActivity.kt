@@ -1,11 +1,9 @@
 package com.example.a041_stellarforecast
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,16 +13,18 @@ import com.example.a041_stellarforecast.domain.model.WeatherReportModel
 import com.example.a041_stellarforecast.presentation.home.HomeViewModel
 import com.example.a041_stellarforecast.presentation.home.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), WeatherAdapter.OnItemClickListener {
+
+    override fun onItemClick(item: WeatherReportModel) {
+        Toast.makeText(this, "Il fera ${item.temperatureCelsius} °C", Toast.LENGTH_SHORT).show()
+    }
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: HomeViewModel by viewModels()
-    private val  customAdapter = WeatherAdapter()
+    private val  customAdapter = WeatherAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
