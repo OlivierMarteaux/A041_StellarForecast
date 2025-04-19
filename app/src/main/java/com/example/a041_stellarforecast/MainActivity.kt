@@ -69,6 +69,11 @@ class MainActivity : AppCompatActivity() {
         customAdapter.submitList(forecast)
     }
 
+    /**
+     * Un RecyclerView est un composant d'Android utilisé pour afficher une liste de données
+     * dynamique dans une interface utilisateur ; il utilise un Adapter pour lier les données à la
+     * vue qui correspondent aux ViewHolders, représentant chaque élément de la liste.
+     */
     private fun defineRecyclerView(){
         val layoutManager = LinearLayoutManager(applicationContext /*this*/)
         binding.recyclerView.layoutManager = layoutManager

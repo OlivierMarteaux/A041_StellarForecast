@@ -15,6 +15,9 @@ import java.util.Locale
  * généralement stockées dans une liste, et la vue qui les affiche. L'adapter crée également
  * les ViewHolders nécessaires pour chaque élément de données, ce qui permet un recyclage
  * efficace des vues et une meilleure performance.
+ *
+ * L'Adapter gère la création des ViewHolders (  onCreateViewHolder  ), l'association des données
+ * avec les vues (  bind  ) et la gestion des mises à jour dynamiques de l'interface utilisateur.
  */
 class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherViewHolder>(DiffCallback) {
 
@@ -22,6 +25,9 @@ class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherV
      * Un ViewHolder représente chaque élément individuel dans la liste.
      * Il conserve une référence aux vues à l'intérieur de chaque élément de la liste,
      * ce qui évite de rechercher ces vues à chaque mise à jour.
+     *
+     * Les ViewHolders représentent la partie graphique de la RecyclerView, ce sont les éléments
+     * de la liste que nous lions à un fichier XML.
      */
     class WeatherViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
         private val dateFormatter = SimpleDateFormat("dd/MM - HH:mm", Locale.getDefault())
