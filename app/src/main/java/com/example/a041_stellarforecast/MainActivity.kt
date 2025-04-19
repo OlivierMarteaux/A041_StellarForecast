@@ -5,6 +5,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +18,20 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        /** Test synchrone instruction*/
+//        for (i in 1..10000){
+//            Thread.sleep(5)
+//        }
+
+        /** Test asynchrone instruction */
+//        GlobalScope.launch(Dispatchers.IO) {
+//            for (i in 1..10000){
+//            Thread.sleep(1)
+//            }
+//            println("Sleepy function done")
+//        }
+
     }
+
+
 }
