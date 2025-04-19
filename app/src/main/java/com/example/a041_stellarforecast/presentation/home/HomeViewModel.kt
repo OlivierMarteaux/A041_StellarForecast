@@ -1,6 +1,5 @@
 package com.example.a041_stellarforecast.presentation.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.a041_stellarforecast.data.repository.WeatherRepository
