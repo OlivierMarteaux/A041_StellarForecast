@@ -48,14 +48,14 @@ class HomeViewModel @Inject constructor(private val dataRepository: WeatherRepos
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
-        init{
-            getForecastData()
-        }
+//        init{
+//            getForecastData()
+//        }
 
-        private fun getForecastData(){
-            // coordonnees maison
-            val latitude = 43.521162766326995
-            val longitude = 6.8696485006942405
+        fun getForecastData(latitude : Double, longitude : Double){
+//            // coordonnees maison
+//            val latitude = 43.521162766326995
+//            val longitude = 6.8696485006942405
             dataRepository.fetchForecastData(latitude, longitude)
                 .onEach { forecastUpdate ->
 //                        currentState.copy(
