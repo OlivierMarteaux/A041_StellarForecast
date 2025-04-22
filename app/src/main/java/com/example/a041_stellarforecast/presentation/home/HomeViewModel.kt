@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.a041_stellarforecast.data.repository.WeatherRepository
 import com.example.a041_stellarforecast.domain.model.WeatherReportModel
+import com.example.a041_stellarforecast.data.repository.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -56,11 +57,33 @@ class HomeViewModel @Inject constructor(private val dataRepository: WeatherRepos
             val latitude = 43.521162766326995
             val longitude = 6.8696485006942405
             dataRepository.fetchForecastData(latitude, longitude)
-                .onEach{ forecastUpdate ->
-                    _uiState.update { currentState ->
-                        currentState.copy(
-                            forecast = forecastUpdate
-                        )
+                .onEach { forecastUpdate ->
+//                        currentState.copy(
+//                            forecast = forecastUpdate
+//                        )
+                    when (forecastUpdate) {
+                        is Result.Failure ->
+                            _uiState.update { currentState ->
+                                currentState.copy(
+                                    isViewLoading = false,
+                                    errorMessages = forecastUpdate.message
+                                )
+                            }
+                        is Result.Loading ->
+                            _uiState.update { currentState ->
+                                currentState.copy(
+                                    isViewLoading = true,
+                                    errorMessages = null
+                                )
+                            }
+                        is Result.Success ->
+                            _uiState.update { currentState ->
+                                currentState.copy(
+                                    forecast = forecastUpdate.value,
+                                    isViewLoading = false,
+                                    errorMessages = null
+                                )
+                            }
                     }
                 }
                 .launchIn(viewModelScope)
@@ -69,4 +92,6 @@ class HomeViewModel @Inject constructor(private val dataRepository: WeatherRepos
 
 data class HomeUiState(
     val forecast: List<WeatherReportModel> = emptyList(),
+    val isViewLoading: Boolean = false,
+    val errorMessages: String? = null
 )

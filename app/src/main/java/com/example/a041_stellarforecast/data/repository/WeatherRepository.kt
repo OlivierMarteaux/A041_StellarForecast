@@ -3,6 +3,7 @@ package com.example.a041_stellarforecast.data.repository
 import android.util.Log
 import com.example.a041_stellarforecast.data.network.WeatherClient
 import com.example.a041_stellarforecast.domain.model.WeatherReportModel
+import com.example.a041_stellarforecast.data.repository.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -21,17 +22,18 @@ class WeatherRepository(private val dataService: WeatherClient) {
      * une coroutine. À chaque fois qu’une nouvelle donnée sera disponible, nous n’aurons qu'à
      * émettre avec la fonction “emit” propre au “flow”.
      */
-    fun fetchForecastData(lat: Double, lng: Double): Flow<List<WeatherReportModel>> =
+    fun fetchForecastData(lat: Double, lng: Double): Flow<Result<List<WeatherReportModel>>> =
         flow {
-
+            emit(Result.Loading)
             val result = dataService.getWeatherByPosition(
                 latitude = lat,
                 longitude = lng,
                 apiKey = API_KEY
             )
             val model = result.body()?.toDomainModel() ?: throw Exception("Invalid data")
-            emit(model)
+            emit(Result.Success(model))
         }.catch { error ->
-            Log.e("WeatherRepository", error.message ?: "")
+//            Log.e("WeatherRepository", error.message ?: "")
+            emit(Result.Failure(error.message))
         }
 }
